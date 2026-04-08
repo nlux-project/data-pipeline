@@ -41,7 +41,7 @@ harvest-teylers.sh                 # wrapper shell script
     "name": "teylers",
     "type": "internal",
     "namespace": "https://teylers.adlibhosting.com/ais6/Details/museum/",
-    "matches": ["teylers.adlibhosting.com/ais6/"],
+    "matches": ["teylers.adlibhosting.com/ais6/Details/museum/"],
     "merge_order": 1,
     "harvesterClass": "process.base.harvester.Harvester",
     "mapperClass": "sources.museums.teylers.mapper.TeylersMapper",
@@ -116,6 +116,44 @@ python ./run-export.py 0 1
 ```
 
 Output lands in `data/output/latest/`.
+
+### 3. Optional: load authority data for cross-source reconciliation
+
+Without authority data the pipeline still works, but AAT type URIs and the Wikidata `current_owner` reference will not be enriched or linked across sources. "Failed to acquire" warnings during reconcile are expected in this case.
+
+#### AAT (Getty Art & Architecture Thesaurus)
+
+Harvests live from Getty's activity stream — no download needed:
+
+```bash
+# Harvest AAT records from Getty's API
+uv run python ./run-harvest.py --aat
+
+# Build the reconciliation index (label → AAT id lookup)
+uv run python ./manage-data.py --load-index --aat
+
+# Re-reconcile teylers now that AAT is available
+uv run python ./run-reconcile.py 0 1 --teylers
+```
+
+#### Wikidata
+
+Requires the full dump (~100 GB compressed). Only needed if you want to link creators and places across sources.
+
+```bash
+# Download the dump (takes hours)
+mkdir -p data/input/wikidata
+curl -L https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.gz \
+    -o data/input/wikidata/latest-all.json.gz
+
+# Load into the datacache (parallel, 24 slices)
+./load_parallel.sh --wikidata
+
+# Build the reconciliation index
+uv run python ./manage-data.py --load-index --wikidata
+```
+
+**Recommendation:** Start with AAT only. It is fast, covers all the type classifications Teylers records reference, and requires no large download. Wikidata is only worth loading if you need to reconcile creators and places against other sources.
 
 ## Known issues / dependencies
 
