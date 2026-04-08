@@ -40,7 +40,7 @@
 	"Type", "Language", "Material",
 	"MeasurementUnit", "Currency"],
 
-    "base_dir": "/home/lux/pipeline",
+    "base_dir": "/Users/lux/data-pipeline",
     "indexes_dir": "data/processing",
     "dumps_dir": "data/input",
     "exports_dir": "data/output/latest",
@@ -48,6 +48,8 @@
     "log_dir": "data/logs",
     "tests_dir": "data/tests",
     
+    "idmap_name": "idmap",
+
     "path_types": {
     	"reconcileDbPath": "indexes_dir",
     	"reconcileDumpPath": "dumps_dir",

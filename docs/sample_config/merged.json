@@ -5,7 +5,7 @@
 	"idmap_name": "idmap",
 
 	"recordcacheClass": "storage.cache.postgres.MergedRecordCache",
-    "mapperClass": "sources.lux.final.mapper.Cleaner",
-    "reconcilerClass": "sources.lux.final.reconciler.CsvReconciler",
+    "mapperClass": "process.base.mapper.Mapper",
+    "reconcilerClass": null,
     "acquirerClass": null
 }

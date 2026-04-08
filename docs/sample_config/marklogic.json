@@ -4,7 +4,7 @@
     "namespace": "https://your.local.domain/data/",
     
     "recordcacheClass": "storage.cache.postgres.MergedRecordCache",
-    "mapperClass": "sources.lux.marklogic.mapper.MlMapper",
+    "mapperClass": null,
     "acquirerClass": null
     
 }
