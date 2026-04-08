@@ -46,6 +46,10 @@ if "--load" in sys.argv:
         cfgs.external["ror"]["datacache"].clear()
         cfgs.external["ror"]["loader"].load()
 
+    if "--teylers" in sys.argv or "--all" in sys.argv:
+        cfgs.internal["teylers"]["datacache"].clear()
+        cfgs.internal["teylers"]["loader"].load()
+
     if "--viaf" in sys.argv or "--all" in sys.argv:
         my_slice = int(sys.argv[1])
         max_slice = int(sys.argv[2])

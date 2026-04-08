@@ -9,5 +9,5 @@ fi
 for count in `seq 0 49`;
 do
     echo $count
-    nohup python ./run-harvest.py $count 50 --pages $1 > ../data/logs/harvest_$count$1.txt &
+    nohup uv run python ./run-harvest.py $count 50 --pages $1 > data/logs/harvest_$count$1.txt &
 done
