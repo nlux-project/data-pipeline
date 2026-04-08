@@ -1,4 +1,5 @@
-from pipeline.process.base.harvester import ASHarvester
+from pipeline.process.base.harvester import ASHarvester, Harvester
+import os
 import ujson as json
 import sys
 

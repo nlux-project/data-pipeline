@@ -47,9 +47,11 @@ harvest_from = None
 # last_update = "2020-01-01T00:00:00"
 # harvest_from = "2024-01-01T00:00:00"
 
+page_cache = cfgs.external.get("activitystreams", {}).get("datacache", {})
+
 if ONLY_PAGES:
     for src, cfg in to_do:
-        cfg["harvester"].page_cache = cfgs.external["activitystreams"]["datacache"]
+        cfg["harvester"].page_cache = page_cache
         mgr.harvest_pages(cfg, my_slice, max_slice)
     sys.exit()
 
@@ -63,6 +65,6 @@ for src, cfg in to_do:
         if harvest_from:
             cfg["harvester"].harvest_from = harvest_from
 
-        cfg["harvester"].page_cache = cfgs.external["activitystreams"]["datacache"]
+        cfg["harvester"].page_cache = page_cache
         print(f"Harvesting {src} records")
         mgr.harvest_single(src)
