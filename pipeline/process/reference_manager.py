@@ -21,7 +21,7 @@ class ReferenceManager(object):
             data = fh.read()
         js = json.loads(data)
         getty_redirects = {}
-        res = js["results"]["bindings"]
+        res = js.get("results", {}).get("bindings", [])
         for r in res:
             f = r["from"]["value"]
             t = r["to"]["value"]

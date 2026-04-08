@@ -33,7 +33,7 @@ class Reconciler(object):
 
     def reconcile(self, record):
         if self.global_reconciler is None:
-            self.global_reconciler = self.configs.results["merged"]["reconciler"]
+            self.global_reconciler = self.config.results["merged"].get("reconciler", None)
 
         # We only process these types...
         if not record["data"]["type"] in self.reconcileTypes:
