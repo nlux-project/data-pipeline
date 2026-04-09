@@ -11,7 +11,7 @@
     "harvesterClass": "sources.authorities.getty.harvester.GettyHarvester",
     "fetcherClass": "sources.authorities.getty.fetcher.GettyFetcher",
     "mapperClass": "sources.authorities.getty.mapper.AatMapper",
-    "indexLoaderClass": "process.base.index_loader.IndexLoader",
+    "indexLoaderClass": "process.base.index_loader.SqliteIndexLoader",
     "reconcilerClass": "sources.authorities.getty.reconciler.AatReconciler",
     
     "reconcileDbPath": "label_to_aat.sqlite",

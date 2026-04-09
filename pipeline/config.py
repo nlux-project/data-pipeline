@@ -1,10 +1,11 @@
 import os
+import importlib
 from .storage.cache.filesystem import FsCache
 
 
 # c.f. https://github.com/cheshire3/cheshire3/blob/develop/cheshire3/dynamic.py#L43
 def importObject(objectType):
-    # print(f"Trying to import {objectType}")
+    #print(f"Trying to import {objectType}")
     if not objectType:
         return None
     try:
@@ -12,28 +13,12 @@ def importObject(objectType):
     except:
         raise ValueError("Need module.class instead of %s" % objectType)
     try:
-        m = __import__(modName)
+        m = importlib.import_module(modName)
     except ModuleNotFoundError as e:
         if not objectType.startswith("pipeline"):
-            try:
-                return importObject("pipeline.%s" % objectType)
-            except:
-                pass
+            return importObject("pipeline.%s" % objectType)
         print(f"Failed to import {objectType}")
         raise e
-
-    # Now split and fetch bits
-    mods = modName.split(".")
-    for mn in mods[1:]:
-        try:
-            m = getattr(m, mn)
-        except AttributeError as e:
-            if not objectType.startswith("pipeline"):
-                try:
-                    return importObject("pipeline.%s" % objectType)
-                except:
-                    pass
-            raise e
     try:
         parentClass = getattr(m, className)
     except AttributeError as e:
