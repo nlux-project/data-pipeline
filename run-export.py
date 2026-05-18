@@ -59,7 +59,8 @@ with open(fn, "w") as outh:
             ml[yuid] = rec2
         else:
             rec2 = ml[yuid]["data"]
-        jstr = json.dumps(rec2, separators=(",", ":"))
+        jstr = json.dumps(rec2, separators=(",", ":"),
+                          default=lambda o: o.isoformat() if isinstance(o, datetime.datetime) else str(o))
         outh.write(jstr)
         outh.write("\n")
         sys.stdout.write(".")
